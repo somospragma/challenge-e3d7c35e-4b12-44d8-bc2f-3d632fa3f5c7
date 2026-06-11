@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: event-processor
+  resilience4j:
+    circuitbreaker:
+      instances:
+        default:
+          registerHealthIndicator: true
+          slidingWindowSize: 10
+          failureRateThreshold: 50
+          waitDurationInOpenState: 60000
+          permittedNumberOfCallsInHalfOpenState: 3
+          automaticTransitionFromOpenToHalfOpenEnabled: true
+    retry:
+      maxAttempts: 3
+      waitDuration: 500
+    bulkhead:
+      instances:
+        default:
+          maxConcurrentCalls: 10
+          maxWaitDuration: 500
